@@ -17,7 +17,7 @@ const TopBar = () => {
         <Image path="/general/search.svg" alt="" />
         <input type="text" placeholder="Search" />
       </form>
-      {/* USER */}
+
       <UserButton />
     </div>
   );

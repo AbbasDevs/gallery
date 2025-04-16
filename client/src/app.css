@@ -1,10 +1,10 @@
 .app {
-  width: 100%;
-  display: flex;
-  gap: 16px;
+  width: 100%; /* Set the width to 100% of its parent */
+  display: flex; /* Use flexbox for layout */
+  gap: 16px; /* Add a 16px gap between direct children */
 }
 
 .content {
-  flex: 1;
-  margin-right: 16px;
+  flex: 1; /* Take up remaining space in the flex container */
+  margin-right: 16px; /* Add a 16px margin to the right */
 }

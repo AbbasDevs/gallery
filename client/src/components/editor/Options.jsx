@@ -85,9 +85,7 @@ const Options = ({ previewImg }) => {
     let newHeight;
 
     if (
-      // FIXED: SHORTEN
-      // (originalOrientation === "portrait" && orientation === "portrait") ||
-      // (originalOrientation === "landscape" && orientation === "landscape")
+
       originalOrientation === orientation
     ) {
       newHeight = (375 * previewImg.height) / previewImg.width;
@@ -108,11 +106,7 @@ const Options = ({ previewImg }) => {
 
     if (size === "original") {
       if (
-        // FIXED: SHORTEN
-        // (originalOrientation === "portrait" &&
-        //   canvasOptions.orientation === "portrait") ||
-        // (originalOrientation === "landscape" &&
-        //   canvasOptions.orientation === "landscape")
+
         originalOrientation === canvasOptions.orientation
       ) {
         newHeight = (375 * previewImg.height) / previewImg.width;

@@ -9,7 +9,7 @@ import apiRequest from "../../utils/apiRequest";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import BoardForm from "./BoardForm";
 
-// FIXED: CHANGE DIRECT REQUEST TO MUTATION
+
 const addPost = async (post) => {
   const res = await apiRequest.post("/pins", post);
   return res.data;
@@ -28,7 +28,7 @@ const CreatePage = () => {
     height: 0,
   });
   const [isEditing, setIsEditing] = useState(false);
-  // FIXED: ADD NEW BOARD
+
   const [newBoard, setNewBoard] = useState("");
   const [isNewBoardOpen, setIsNewBoardOpen] = useState(false);
 

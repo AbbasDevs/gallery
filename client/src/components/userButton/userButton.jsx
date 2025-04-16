@@ -10,9 +10,6 @@ const UserButton = () => {
 
   const navigate = useNavigate();
 
-  // TEMP
-  // const currentUser = true;
-
   const { currentUser, removeCurrentUser } = useAuthStore();
 
   console.log(currentUser);
