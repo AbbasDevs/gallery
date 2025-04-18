@@ -1,7 +1,13 @@
+// Importing React's useState hook for managing component state
 import { useState } from "react";
+
+// Importing the custom editor store for managing state
 import useEditorStore from "../../utils/editorStore";
+
+// Importing the HexColorPicker component for color selection
 import { HexColorPicker } from "react-colorful";
 
+// Predefined portrait aspect ratios for canvas resizing
 const portraitSizes = [
   {
     name: "1:2",
@@ -35,6 +41,7 @@ const portraitSizes = [
   },
 ];
 
+// Predefined landscape aspect ratios for canvas resizing
 const landscapeSizes = [
   {
     name: "2:1",
@@ -68,31 +75,39 @@ const landscapeSizes = [
   },
 ];
 
+// The Options component provides a user interface for customizing the canvas and text layer.
+// Props:
+// - previewImg: An object containing details about the preview image (e.g., URL, dimensions).
 const Options = ({ previewImg }) => {
+  // Accessing state and state-modifying functions from the editor store
   const {
-    selectedLayer,
-    textOptions,
-    setTextOptions,
-    canvasOptions,
-    setCanvasOptions,
+    selectedLayer, // The currently selected layer (e.g., "text" or "canvas").
+    textOptions, // Object containing options for the text layer (e.g., font size, color).
+    setTextOptions, // Function to update the text layer options.
+    canvasOptions, // Object containing options for the canvas (e.g., size, orientation, background color).
+    setCanvasOptions, // Function to update the canvas options.
   } = useEditorStore();
+
+  // State to manage the visibility of the color picker
   const [isColorPickerOpen, setSetIsColorPickerOpen] = useState(false);
 
+  // Determines the original orientation of the preview image (portrait or landscape)
   const originalOrientation =
     previewImg.width < previewImg.height ? "portrait" : "landscape";
 
+  // Function to handle orientation changes (portrait or landscape)
   const handleOrientationClick = (orientation) => {
     let newHeight;
 
-    if (
-
-      originalOrientation === orientation
-    ) {
+    // If the orientation matches the original, calculate height based on the original dimensions
+    if (originalOrientation === orientation) {
       newHeight = (375 * previewImg.height) / previewImg.width;
     } else {
+      // Otherwise, swap width and height for the new orientation
       newHeight = (375 * previewImg.width) / previewImg.height;
     }
 
+    // Update the canvas options with the new orientation and height
     setCanvasOptions({
       ...canvasOptions,
       orientation,
@@ -101,22 +116,23 @@ const Options = ({ previewImg }) => {
     });
   };
 
+  // Function to handle size changes (e.g., aspect ratio selection)
   const handleSizeClick = (size) => {
     let newHeight;
 
+    // If the size is "original", calculate height based on the original dimensions
     if (size === "original") {
-      if (
-
-        originalOrientation === canvasOptions.orientation
-      ) {
+      if (originalOrientation === canvasOptions.orientation) {
         newHeight = (375 * previewImg.height) / previewImg.width;
       } else {
         newHeight = (375 * previewImg.width) / previewImg.height;
       }
     } else {
+      // Otherwise, calculate height based on the selected aspect ratio
       newHeight = (375 * size.height) / size.width;
     }
 
+    // Update the canvas options with the new size and height
     setCanvasOptions({
       ...canvasOptions,
       size: size === "original" ? "original" : size.name,
@@ -124,10 +140,14 @@ const Options = ({ previewImg }) => {
     });
   };
 
+  // JSX for rendering the Options component
   return (
     <div className="options">
+      {/* Conditional rendering based on the selected layer */}
       {selectedLayer === "text" ? (
+        // Text layer editing options
         <div className="">
+          {/* Font size input */}
           <div className="editingOption">
             <span>Font Size</span>
             <input
@@ -138,6 +158,8 @@ const Options = ({ previewImg }) => {
               }
             />
           </div>
+
+          {/* Text color picker */}
           <div className="editingOption">
             <span>Color</span>
             <div className="textColor">
@@ -160,7 +182,9 @@ const Options = ({ previewImg }) => {
           </div>
         </div>
       ) : (
+        // Canvas editing options
         <div className="">
+          {/* Orientation selection */}
           <div className="editingOption">
             <span>Orientation</span>
             <div className="orientations">
@@ -182,6 +206,8 @@ const Options = ({ previewImg }) => {
               </div>
             </div>
           </div>
+
+          {/* Size selection */}
           <div className="editingOption">
             <span>Size</span>
             <div className="sizes">
@@ -224,6 +250,8 @@ const Options = ({ previewImg }) => {
               )}
             </div>
           </div>
+
+          {/* Background color picker */}
           <div className="editingOption">
             <span>Background Color</span>
             <div className="bgColor">
@@ -255,4 +283,5 @@ const Options = ({ previewImg }) => {
   );
 };
 
+// Exports the Options component so it can be used in other parts of the application
 export default Options;
